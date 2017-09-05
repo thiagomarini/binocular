@@ -1,0 +1,28 @@
+{
+  "name": "thiagomarini/binocular",
+  "description": "Doing Event Sourcing without building a spaceship",
+  "authors": [
+    {
+      "name": "Thiago Marini",
+      "homepage": "http://github.com/thiagomarini"
+    }
+  ],
+  "keywords": [
+    "event",
+    "sourcing"
+  ],
+  "homepage": "https://github.com/thiagomarini/binocular",
+  "license": "MIT",
+  "require": {
+    "php": ">=7.1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "ThiagoMarini\\": "src/",
+      "Tests\\": "tests/"
+    }
+  }
+}
