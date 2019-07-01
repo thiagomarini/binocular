@@ -86,6 +86,11 @@ abstract class BaseEvent implements Event
         return $this->createdAt;
     }
 
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
     public function getSnapshotProjectionName(): ?string
     {
         return null;

@@ -18,5 +18,7 @@ interface Event
 
     public function getCreatedAt(): \DateTime;
 
+    public function setCreatedAt(\DateTime $createdAt);
+
     public function equals(Event $event): bool;
 }
