@@ -60,14 +60,19 @@ print_r($newState); // ['name' => 'John Smith']
 
 As already explained Binocular can be used with any framework, you just need to know where to place things.
 In the case of Laravel, it already has a simple [observer implementation](https://laravel.com/docs/master/events) which is more than enough to make things work with Binocular. 
+
+I've created an [example app in Laravel](https://github.com/thiagomarini/binocular-laravel). In the example I used the `User` model as the root to be event sourced, meaning that will have its own events table and also a read model table.
+
 Conceptually you'll need to:
 
-* Create an Eloquent implementation of the repository if you don't want to use the PDO one.
-* Create migrations for event and read model table.
-* Create an implementation of the `event()` global helper in order to save the event before queueing it.
-* Place a projection in an event listener to calculate and save the state of the read model.
+* Create an [Eloquent implementation of the repository](https://github.com/thiagomarini/binocular-laravel/blob/master/app/EventSourcing/Repositories/UserEventRepository.php) if you don't want to use the PDO one.
+* Create [migrations](https://github.com/thiagomarini/binocular-laravel/tree/master/database/migrations) for event and read model table.
+* Create a [custom implementation of the `event()` global helper](https://github.com/thiagomarini/binocular-laravel/blob/01a3449e31f70fd2689e74a601af294cfcbafea5/bootstrap/app.php#L60) in order to save the event before queueing it.
+* [Place a projection in an event listener](https://github.com/thiagomarini/binocular-laravel/blob/01a3449e31f70fd2689e74a601af294cfcbafea5/app/EventSourcing/Listeners/UserSubscriber.php#L41) to calculate and save the state of the read model.
+* [Fire events](https://github.com/thiagomarini/binocular-laravel/blob/01a3449e31f70fd2689e74a601af294cfcbafea5/app/Http/Controllers/Auth/RegisterController.php#L77) wherever you think it's appropriate.
+* The cached state will be available on the [read model](https://github.com/thiagomarini/binocular-laravel/blob/master/app/UserActions.php) and you can use it as any Eloquent model in the application. And remember that read models and projections are 1-1, meaning that one projection should produce state for one read model only.
 
-See more examples on `tests/Examples` folder.
+There's also other plain PHP examples on `tests/Examples` folder.
 
 ### How to contribute
 
